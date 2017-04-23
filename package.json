@@ -4,6 +4,8 @@
     "build": "browserify client.js > bundle.js"
   },
   "devDependencies": {
-    "browserify": "^14.3.0"
+    "bel": "^4.6.0",
+    "browserify": "^14.3.0",
+    "nanomorph": "^4.0.4"
   }
 }
