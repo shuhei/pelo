@@ -1,4 +1,4 @@
-function handleValue(value) {
+function handleValue (value) {
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
     return value.join('')
@@ -36,6 +36,7 @@ function stringify () {
   }
   // HACK: Avoid double encoding by marking encoded string
   // You cannot add properties to string literals
+  // eslint-disable-next-line no-new-wrappers
   const wrapper = new String(output)
   wrapper.__encoded = true
   return wrapper

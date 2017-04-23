@@ -2,7 +2,7 @@ const bel = require('bel')
 const stringify = require('.')
 const createApp = require('./app')
 
-const iteration = 10000;
+const iteration = 10000
 
 const strApp = createApp(stringify)
 const belApp = createApp(bel)

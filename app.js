@@ -1,22 +1,22 @@
 module.exports = function (html) {
-  const greeting = "Hello"
-  const name = "special characters, <, >, &"
+  const greeting = 'Hello'
+  const name = 'special characters, <, >, &'
   const drinks = [
-      { name: "Cafe Latte", price: 3.0 },
-      { name: "Cappucino", price: 2.9 },
-      { name: "Club Mate", price: 2.2 },
-      { name: "Berliner Weiße", price: 3.5 }
+      { name: 'Cafe Latte', price: 3.0 },
+      { name: 'Cappucino', price: 2.9 },
+      { name: 'Club Mate', price: 2.2 },
+      { name: 'Berliner Weiße', price: 3.5 }
   ]
 
   const listeners = []
-  function onChange(listener) {
+  function onChange (listener) {
     listeners.push(listener)
   }
-  function notifyChange() {
+  function notifyChange () {
     listeners.forEach((listener) => listener())
   }
 
-  function deleteDrink(drink) {
+  function deleteDrink (drink) {
     const index = drinks.indexOf(drink)
     if (index >= 0) {
       drinks.splice(index, 1)
@@ -24,7 +24,7 @@ module.exports = function (html) {
     notifyChange()
   }
 
-  function drinkView(drink, deleteDrink) {
+  function drinkView (drink, deleteDrink) {
     return html`
       <li>
         ${drink.name} is € ${drink.price}
@@ -48,7 +48,7 @@ module.exports = function (html) {
     `
   }
 
-  function render() {
+  function render () {
     return mainView(greeting, name, drinks, deleteDrink)
   }
 

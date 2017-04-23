@@ -6,7 +6,7 @@ const html = require('.')
 
 const app = createApp(html)
 
-function layout(content) {
+function layout (content) {
   return `
     <!DOCTYPE html>
     <html>
