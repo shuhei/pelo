@@ -2,7 +2,7 @@ const http = require('http')
 const fs = require('fs')
 
 const createApp = require('./app')
-const html = require('./html')
+const html = require('.')
 
 const app = createApp(html)
 

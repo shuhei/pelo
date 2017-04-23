@@ -1,5 +1,5 @@
 const bel = require('bel')
-const stringify = require('./html')
+const stringify = require('.')
 const createApp = require('./app')
 
 const iteration = 1000;
