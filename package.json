@@ -3,13 +3,16 @@
   "version": "0.0.0",
   "description": "Lightning fast server-side rendering with tagged template literals",
   "main": "index.js",
+  "browser": "bel",
   "scripts": {
     "start": "npm run build && node server.js",
     "test": "node benchmark.js",
     "build": "browserify client.js > bundle.js"
   },
+  "dependencies": {
+    "bel": "^4.6.0"
+  },
   "devDependencies": {
-    "bel": "^4.6.0",
     "browserify": "^14.3.0",
     "nanomorph": "^4.0.4",
     "standard": "^10.0.2"
