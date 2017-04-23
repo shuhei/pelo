@@ -37,13 +37,13 @@ module.exports = function (html) {
     return html`
       <div>
         <p>${greeting}, ${name}!</p>
-        ${[drinks.length > 0 ? html`
+        ${drinks.length > 0 ? html`
           <ul>
             ${drinks.map(drink => drinkView(drink, deleteDrink))}
           </ul>
         ` : html`
           <p>All drinks are gone!</p>
-        `]}
+        `}
       </div>
     `
   }

@@ -1,4 +1,3 @@
-// TODO: Handle special cases like null, undefined, etc.
 function handleValue(value) {
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
@@ -10,6 +9,12 @@ function handleValue(value) {
   //     onclick=""
   if (typeof value === 'function') {
     return '""'
+  }
+  if (value === null || value === undefined) {
+    return ''
+  }
+  if (value.__encoded) {
+    return value
   }
   const str = value.toString()
   return str
@@ -29,7 +34,11 @@ function stringify () {
       output += handleValue(arguments[i + 1])
     }
   }
-  return output
+  // HACK: Avoid double encoding by marking encoded string
+  // You cannot add properties to string literals
+  const wrapper = new String(output)
+  wrapper.__encoded = true
+  return wrapper
 }
 
 module.exports = stringify

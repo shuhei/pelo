@@ -7,10 +7,10 @@ const iteration = 1000;
 const strApp = createApp(stringify)
 console.time('stringify')
 for (let i = 0; i < iteration; i++) {
-  strApp.render()
+  strApp.render().toString()
 }
 console.timeEnd('stringify')
-console.log(strApp.render())
+console.log(strApp.render().toString())
 
 const belApp = createApp(bel)
 console.time('bel')
