@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "start": "npm run build && node server.js",
+    "build": "browserify client.js > bundle.js"
+  },
   "devDependencies": {
-    "bankai": "^7.4.0"
+    "browserify": "^14.3.0"
   }
 }
