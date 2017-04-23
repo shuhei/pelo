@@ -36,14 +36,14 @@ const server = http.createServer((req, res) => {
       'Content-Type': 'text/javascript'
     })
     fs.createReadStream('./bundle.js').pipe(res)
-    return;
+    return
   }
 
   const content = app.render()
   const body = layout(content)
   res.writeHead(200, {
     'Content-Type': 'text/html'
-  });
+  })
   res.end(body)
 })
 server.listen(8080)

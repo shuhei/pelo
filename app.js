@@ -8,7 +8,7 @@ module.exports = function (html) {
       { name: "Berliner Weiße", price: 3.5 }
   ]
 
-  const listeners = [];
+  const listeners = []
   function onChange(listener) {
     listeners.push(listener)
   }
