@@ -17,6 +17,11 @@
     "nanomorph": "^4.0.4",
     "standard": "^10.0.2"
   },
+  "homepage": "https://github.com/shuhei/pelo",
+  "bugs": {
+    "url": "https://github.com/shuhei/pelo/issues"
+  },
+  "repository": "shuhei/pelo",
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "ISC"
 }
