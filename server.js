@@ -1,10 +1,11 @@
 const http = require('http')
 const fs = require('fs')
 
+const pelo = require('.')
+pelo.replace('bel')
 const createApp = require('./app')
-const html = require('.')
 
-const app = createApp(html)
+const app = createApp()
 
 function layout (content) {
   return `
