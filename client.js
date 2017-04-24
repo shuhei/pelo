@@ -1,9 +1,8 @@
-const bel = require('bel')
 const nanomorph = require('nanomorph')
 
 const createApp = require('./app')
 
-const app = createApp(bel)
+const app = createApp()
 
 const root = document.getElementById('root')
 const tree = root.firstElementChild

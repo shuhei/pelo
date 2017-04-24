@@ -1,4 +1,7 @@
-module.exports = function (html) {
+module.exports = function () {
+  // Allow `bel` to be swapped in benchmarking
+  const html = require('bel')
+
   const greeting = 'Hello'
   const name = 'special characters, <, >, &'
   const drinks = [

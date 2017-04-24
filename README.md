@@ -2,14 +2,32 @@
 
 Lightning fast server-side rendering with tagged template literals
 
+A tiny library that enables lightning fast server-side rendering with [hyperx](https://github.com/substack/hyperx)-like libraries such as `bel`, `yo-yo` and `choo/html`. It replaces the tag function of those libraries and just renders string without creating intermediate objects.
+
+## Installing
+
+```sh
+npm install pelo
+```
+
 ## Usage
 
-**TBD**
+`ssr.js`: Call `pelo.replace(moduleId)` before you require any view module, `bel` in this case.
 
 ```js
-const html = require('pelo')
+const pelo = require('pelo')
+pelo.replace('bel')
+const view = require('./view')
 
-function helloView(name) {
+const renderedString = view('pelo').toString()
+```
+
+`view.js`: You don't need to change your view files at all. You can use them for client-side rendering and server-side rendering.
+
+```js
+const html = require('bel')
+
+module.exports = function helloView(name) {
   return html`<p>Hello, ${name}</p>`
 }
 ```

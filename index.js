@@ -1,3 +1,5 @@
+const Module = require('module')
+
 function handleValue (value) {
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
@@ -41,5 +43,17 @@ function stringify () {
   wrapper.__encoded = true
   return wrapper
 }
+
+function replace(moduleId) {
+  const originalRequire = Module.prototype.require
+  Module.prototype.require = function (id) {
+    if (id === moduleId) {
+      return stringify
+    } else {
+      return originalRequire.apply(this, arguments)
+    }
+  }
+}
+stringify.replace = replace
 
 module.exports = stringify
