@@ -1,6 +1,6 @@
 {
   "name": "pelo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Lightning fast server-side rendering with tagged template literals",
   "main": "index.js",
   "scripts": {
