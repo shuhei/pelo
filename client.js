@@ -1,3 +1,5 @@
+'use strict'
+
 const nanomorph = require('nanomorph')
 
 const createApp = require('./app')

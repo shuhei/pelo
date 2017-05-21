@@ -1,3 +1,5 @@
+'use strict'
+
 module.exports = function () {
   // Allow `bel` to be swapped in benchmarking
   const html = require('bel')

@@ -1,3 +1,5 @@
+'use strict'
+
 const pelo = require('.')
 const createApp = require('./app')
 
