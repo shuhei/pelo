@@ -42,8 +42,8 @@ node benchmark.js
 
 |  tag | time (ms) |
 | ---- | --------- |
-| pelo |   193.871 |
-|  bel |  2522.082 |
+| pelo |   219.093 |
+|  bel |  1982.610 |
 
 ## Motivation
 

@@ -2,6 +2,13 @@
 
 const Module = require('module')
 
+var BOOL_PROPS = [
+  'autofocus', 'checked', 'defaultchecked', 'disabled', 'formnovalidate',
+  'indeterminate', 'readonly', 'required', 'selected', 'willvalidate'
+]
+
+var BOOL_PROP_PATTERN = new RegExp(' (' + BOOL_PROPS.join('|') + ')=(""|\'\')', 'ig')
+
 function handleValue (value) {
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
@@ -14,7 +21,7 @@ function handleValue (value) {
   if (typeof value === 'function') {
     return '""'
   }
-  if (value === null || value === undefined) {
+  if (value === null || value === undefined || value === false) {
     return ''
   }
   if (value.__encoded) {
@@ -30,14 +37,15 @@ function handleValue (value) {
 }
 
 function stringify () {
-  const pieces = arguments[0]
-  let output = ''
-  for (let i = 0; i < pieces.length; i++) {
+  var pieces = arguments[0]
+  var output = ''
+  for (var i = 0; i < pieces.length; i++) {
     output += pieces[i]
     if (i < pieces.length - 1) {
       output += handleValue(arguments[i + 1])
     }
   }
+  output = output.replace(BOOL_PROP_PATTERN, '')
   // HACK: Avoid double encoding by marking encoded string
   // You cannot add properties to string literals
   // eslint-disable-next-line no-new-wrappers

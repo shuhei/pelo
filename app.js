@@ -7,10 +7,10 @@ module.exports = function () {
   const greeting = 'Hello'
   const name = 'special characters, <, >, &'
   const drinks = [
-      { name: 'Cafe Latte', price: 3.0 },
-      { name: 'Cappucino', price: 2.9 },
-      { name: 'Club Mate', price: 2.2 },
-      { name: 'Berliner Weiße', price: 3.5 }
+      { name: 'Cafe Latte', price: 3.0, sold: false },
+      { name: 'Cappucino', price: 2.9, sold: true },
+      { name: 'Club Mate', price: 2.2, sold: true },
+      { name: 'Berliner Weiße', price: 3.5, sold: false }
   ]
 
   const listeners = []
@@ -33,7 +33,7 @@ module.exports = function () {
     return html`
       <li>
         ${drink.name} is € ${drink.price}
-        <a href="#" onclick=${() => deleteDrink(drink)}>Give me!</a>
+        <button onclick=${() => deleteDrink(drink)} disabled="${!drink.sold}">Give me!</button>
       </li>
     `
   }
