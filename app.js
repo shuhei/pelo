@@ -33,7 +33,7 @@ module.exports = function () {
     return html`
       <li>
         ${drink.name} is € ${drink.price}
-        <button ${{type: 'submit', 'data-ga-btn': 'Button'}} onclick=${() => deleteDrink(drink)} disabled="${!drink.sold}"">Give me!</button>
+        <button ${{type: 'submit', 'data-ga-btn': 'Button'}} onclick=${() => deleteDrink(drink)} disabled="${!drink.sold}">Give me!</button>
       </li>
     `
   }
