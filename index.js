@@ -21,9 +21,15 @@ function handleValue (value) {
   if (typeof value === 'function') {
     return '""'
   }
+
   if (value === null || value === undefined || value === false) {
     return ''
   }
+
+  if (typeof value === 'object' && value.constructor.name !== 'String') {
+    return objToString(value)
+  }
+
   if (value.__encoded) {
     return value
   }
@@ -54,7 +60,15 @@ function stringify () {
   return wrapper
 }
 
-function replace(moduleId) {
+function objToString (obj) {
+  const keys = Object.keys(obj)
+  return keys.map(function (key, i) {
+    const val = obj[key] || ''
+    return ' ' + key + '="' + val + '" '
+  }).join('')
+}
+
+function replace (moduleId) {
   const originalRequire = Module.prototype.require
   Module.prototype.require = function (id) {
     if (id === moduleId) {
@@ -64,6 +78,7 @@ function replace(moduleId) {
     }
   }
 }
+
 stringify.replace = replace
 
 module.exports = stringify
