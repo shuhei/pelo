@@ -64,8 +64,8 @@ function objToString (obj) {
   const keys = Object.keys(obj)
   return keys.map(function (key, i) {
     const val = obj[key] || ''
-    return ' ' + key + '="' + val + '" '
-  }).join('')
+    return key + '="' + val + '"'
+  }).join(' ')
 }
 
 function replace (moduleId) {
