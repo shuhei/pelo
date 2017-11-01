@@ -65,11 +65,13 @@ function stringify () {
 }
 
 function objToString (obj) {
-  const keys = Object.keys(obj)
-  return keys.map(function (key, i) {
-    const val = obj[key] || ''
-    return key + '="' + val + '"'
-  }).join(' ')
+  const values = [];
+  const keys = Object.keys(obj);
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i]
+    values.push(`${key}="${obj[key] || ''}"`)
+  }
+  return values.join(' ')
 }
 
 function replace (moduleId) {
