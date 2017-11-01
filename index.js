@@ -54,12 +54,10 @@ function handleValue (value) {
 function stringify () {
   var pieces = arguments[0]
   var output = ''
-  for (var i = 0; i < pieces.length; i++) {
-    output += pieces[i]
-    if (i < pieces.length - 1) {
-      output += handleValue(arguments[i + 1])
-    }
+  for (var i = 0; i < pieces.length - 1; i++) {
+    output += pieces[i] + handleValue(arguments[i + 1])
   }
+  output += pieces[i]
   output = output
     .replace(DISABLED_PATTERN, 'disabled="disabled"')
     .replace(BOOL_PROP_PATTERN, '')
