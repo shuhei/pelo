@@ -71,13 +71,12 @@ function stringify () {
 }
 
 function objToString (obj) {
-  const values = [];
-  const keys = Object.keys(obj);
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i]
-    values.push(`${key}="${obj[key] || ''}"`)
+  var values = ''
+  const keys = Object.keys(obj)
+  for (var i = 0; i < keys.length - 1; i++) {
+    values += keys[i] + '="' + (obj[keys[i]] || '') + '" '
   }
-  return values.join(' ')
+  return values + keys[i] + '="' + (obj[keys[i]] || '') + '"'
 }
 
 function replace (moduleId) {
