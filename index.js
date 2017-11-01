@@ -10,6 +10,19 @@ var BOOL_PROPS = [
 var BOOL_PROP_PATTERN = new RegExp(' (' + BOOL_PROPS.join('|') + '|onclick)=(""|\'\')', 'ig')
 var DISABLED_PATTERN = new RegExp('disabled=("true"|\'true\')', 'ig')
 
+const replaceMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '\'': '&#039;'
+}
+const replaceMapRE = new RegExp(Object.keys(replaceMap).join('|'), 'g')
+
+function replaceMapper (matched){
+  return replaceMap[matched]
+}
+
 function handleValue (value) {
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
@@ -34,13 +47,8 @@ function handleValue (value) {
   if (value.__encoded) {
     return value
   }
-  const str = value.toString()
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+
+  return value.toString().replace(replaceMapRE, replaceMapper)
 }
 
 function stringify () {
