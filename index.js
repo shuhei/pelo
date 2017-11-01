@@ -24,6 +24,10 @@ function replaceMapper (matched){
 }
 
 function handleValue (value) {
+  if (value === null || value === undefined || value === false) {
+    return ''
+  }
+
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
     return value.join('')
@@ -32,15 +36,12 @@ function handleValue (value) {
   //     onclick=${(e) => doSomething(e)}
   // will become
   //     onclick=""
-  if (typeof value === 'function') {
+  const valueType = typeof value
+  if (valueType === 'function') {
     return '""'
   }
 
-  if (value === null || value === undefined || value === false) {
-    return ''
-  }
-
-  if (typeof value === 'object' && value.constructor.name !== 'String') {
+  if (valueType === 'object' && value.constructor.name !== 'String') {
     return objToString(value)
   }
 
