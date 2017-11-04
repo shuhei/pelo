@@ -7,9 +7,27 @@ var BOOL_PROPS = [
   'indeterminate', 'readonly', 'required', 'selected', 'willvalidate'
 ]
 
-var BOOL_PROP_PATTERN = new RegExp(' (' + BOOL_PROPS.join('|') + ')=(""|\'\')', 'ig')
+var BOOL_PROP_PATTERN = new RegExp(' (' + BOOL_PROPS.join('|') + '|onclick)=(""|\'\')', 'ig')
+var DISABLED_PATTERN = new RegExp('disabled=("true"|\'true\')', 'ig')
+
+const replaceMap = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '\'': '&#039;'
+}
+const replaceMapRE = new RegExp(Object.keys(replaceMap).join('|'), 'g')
+
+function replaceMapper (matched){
+  return replaceMap[matched]
+}
 
 function handleValue (value) {
+  if (value === null || value === undefined || value === false) {
+    return ''
+  }
+
   if (Array.isArray(value)) {
     // Suppose that each item is a result of html``.
     return value.join('')
@@ -18,40 +36,33 @@ function handleValue (value) {
   //     onclick=${(e) => doSomething(e)}
   // will become
   //     onclick=""
-  if (typeof value === 'function') {
+  const valueType = typeof value
+  if (valueType === 'function') {
     return '""'
   }
 
-  if (value === null || value === undefined || value === false) {
-    return ''
-  }
-
-  if (typeof value === 'object' && value.constructor.name !== 'String') {
+  if (valueType === 'object' && value.constructor.name !== 'String') {
     return objToString(value)
   }
 
   if (value.__encoded) {
     return value
   }
-  const str = value.toString()
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+
+  return value.toString().replace(replaceMapRE, replaceMapper)
 }
 
 function stringify () {
   var pieces = arguments[0]
   var output = ''
-  for (var i = 0; i < pieces.length; i++) {
-    output += pieces[i]
-    if (i < pieces.length - 1) {
-      output += handleValue(arguments[i + 1])
-    }
+  for (var i = 0; i < pieces.length - 1; i++) {
+    output += pieces[i] + handleValue(arguments[i + 1])
   }
-  output = output.replace(BOOL_PROP_PATTERN, '')
+  output += pieces[i]
+  output = output
+    .replace(DISABLED_PATTERN, 'disabled="disabled"')
+    .replace(BOOL_PROP_PATTERN, '')
+
   // HACK: Avoid double encoding by marking encoded string
   // You cannot add properties to string literals
   // eslint-disable-next-line no-new-wrappers
@@ -61,11 +72,12 @@ function stringify () {
 }
 
 function objToString (obj) {
+  var values = ''
   const keys = Object.keys(obj)
-  return keys.map(function (key, i) {
-    const val = obj[key] || ''
-    return key + '="' + val + '"'
-  }).join(' ')
+  for (var i = 0; i < keys.length - 1; i++) {
+    values += keys[i] + '="' + (obj[keys[i]] || '') + '" '
+  }
+  return values + keys[i] + '="' + (obj[keys[i]] || '') + '"'
 }
 
 function replace (moduleId) {
