@@ -1,4 +1,4 @@
-# pelo (work in progress)
+# pelo
 
 Lightning fast server-side rendering with tagged template literals
 
