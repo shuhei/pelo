@@ -49,4 +49,7 @@ const server = http.createServer((req, res) => {
   })
   res.end(body)
 })
+server.on('listening', () => {
+  console.log('Listening on', server.address());
+});
 server.listen(8080)
