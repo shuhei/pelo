@@ -49,6 +49,9 @@ module.exports = function () {
         ` : html`
           <p>All drinks are gone!</p>
         `}
+        <p>
+          attributes: <input type=text value=${''} disabled onclick="${() => alert('hello')}" ${{ title: '<Special " characters>' }} />
+        </p>
       </div>
     `
   }

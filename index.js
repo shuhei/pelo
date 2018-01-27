@@ -23,6 +23,10 @@ function replaceMapper (matched){
   return replaceMap[matched]
 }
 
+function escape (value) {
+  return value.toString().replace(replaceMapRE, replaceMapper)
+}
+
 function handleValue (value) {
   if (value === null || value === undefined || value === false) {
     return ''
@@ -38,7 +42,7 @@ function handleValue (value) {
   //     onclick=""
   const valueType = typeof value
   if (valueType === 'function') {
-    return '""'
+    return ''
   }
 
   if (valueType === 'object' && value.constructor.name !== 'String') {
@@ -49,14 +53,20 @@ function handleValue (value) {
     return value
   }
 
-  return value.toString().replace(replaceMapRE, replaceMapper)
+  return escape(value)
 }
 
 function stringify () {
   var pieces = arguments[0]
   var output = ''
   for (var i = 0; i < pieces.length - 1; i++) {
-    output += pieces[i] + handleValue(arguments[i + 1])
+    var piece = pieces[i]
+    var value = handleValue(arguments[i + 1])
+    if (piece[piece.length - 1] === '=') {
+      output += piece + '"' + value + '"'
+    } else {
+      output += piece + value
+    }
   }
   output += pieces[i]
   output = output
@@ -75,9 +85,9 @@ function objToString (obj) {
   var values = ''
   const keys = Object.keys(obj)
   for (var i = 0; i < keys.length - 1; i++) {
-    values += keys[i] + '="' + (obj[keys[i]] || '') + '" '
+    values += keys[i] + '="' + escape(obj[keys[i]] || '') + '" '
   }
-  return values + keys[i] + '="' + (obj[keys[i]] || '') + '"'
+  return values + keys[i] + '="' + escape(obj[keys[i]] || '') + '"'
 }
 
 function replace (moduleId) {
